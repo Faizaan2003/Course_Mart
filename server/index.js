@@ -17,7 +17,7 @@ app.use("/user", userRouter);
 
 app.use(express.static("public"));
 app.use("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 
 // Connect to MongoDB
