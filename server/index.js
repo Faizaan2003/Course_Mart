@@ -14,13 +14,10 @@ app.use(express.json());
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
-app.get("/", (req, res) => {
-  res.json("Hello");
-});
 
 // app.use(express.static("public"));
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/index.html"));
+app.use("/*", (req, res) => {
+  res.json("Route not defined!");
 });
 
 // Connect to MongoDB
@@ -31,4 +28,4 @@ mongoose.connect(uri, {
   dbName: "courses",
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+// app.listen(3000, () => console.log("Server running on port 3000"));
