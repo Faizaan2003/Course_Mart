@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../store/atoms/user.js";
 
-function Signup() {
+function UserSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -56,24 +56,26 @@ function Signup() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              const response = await axios.post(`${BASE_URL}/admin/signup`, {
-                username: email,
-                password: password,
-              });
-              let data = response.data;
-
-              if (data.token) {
-                localStorage.setItem("token", data.token);
-                // window.location = "/"
-                setUser({
-                  userEmail: email,
-                  isLoading: false,
+              try {
+                const response = await axios.post(`${BASE_URL}/user/signup`, {
+                  username: email,
+                  password: password,
                 });
-                navigate("/admin");
-                localStorage.setItem("alert", "true");
-              } else {
-                alert("Admin already exists! Please login!");
-                navigate("/admin/signin");
+                let data = response.data;
+
+                if (data.token) {
+                  localStorage.setItem("token", data.token);
+                  // window.location = "/"
+                  setUser({
+                    userEmail: email,
+                    isLoading: false,
+                  });
+                  navigate("/user");
+                  localStorage.setItem("alert", "true");
+                }
+              } catch (err) {
+                alert(err.response.data.message);
+                navigate("/user/signin");
               }
             }}
           >
@@ -86,4 +88,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default UserSignup;

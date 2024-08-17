@@ -2,13 +2,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Card, Typography } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
 import { BASE_URL } from "../config.js";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../store/atoms/user.js";
 
-function Signup() {
+function UserSignin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -25,14 +25,15 @@ function Signup() {
         }}
       >
         <Typography variant={"h6"}>
-          Welcome to Coursera. Sign up below
+          Welcome to Coursera. Sign in below
         </Typography>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Card varint={"outlined"} style={{ width: 400, padding: 20 }}>
           <TextField
-            onChange={(event) => {
-              setEmail(event.target.value);
+            onChange={(evant11) => {
+              let elemt = evant11.target;
+              setEmail(elemt.value);
             }}
             fullWidth={true}
             label="Email"
@@ -56,11 +57,18 @@ function Signup() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              const response = await axios.post(`${BASE_URL}/admin/signup`, {
-                username: email,
-                password: password,
-              });
-              let data = response.data;
+              const res = await axios.post(
+                `${BASE_URL}/user/login`,
+                {},
+                {
+                  headers: {
+                    username: email,
+                    password: password,
+                    "Content-type": "application/json",
+                  },
+                }
+              );
+              const data = res.data;
 
               if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -69,16 +77,18 @@ function Signup() {
                   userEmail: email,
                   isLoading: false,
                 });
-                navigate("/admin");
+                navigate("/user");
                 localStorage.setItem("alert", "true");
               } else {
-                alert("Admin already exists! Please login!");
-                navigate("/admin/signin");
+                alert(
+                  "Error occured! please login again with valid credentials!"
+                );
+                navigate("/user/signin");
               }
             }}
           >
             {" "}
-            Signup
+            Signin
           </Button>
         </Card>
       </div>
@@ -86,4 +96,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default UserSignin;

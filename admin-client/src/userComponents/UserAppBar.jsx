@@ -5,9 +5,9 @@ import { isUserLoading } from "../store/selectors/isUserLoading";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../store/atoms/user.js";
 import { userEmailState } from "../store/selectors/userEmail";
-import { Loading } from "./Loading.jsx";
+import { Loading } from "../components/Loading.jsx";
 
-function Appbar({}) {
+function UserAppBar({}) {
   const navigate = useNavigate();
   const userLoading = useRecoilValue(isUserLoading);
   const userEmail = useRecoilValue(userEmailState);
@@ -41,17 +41,17 @@ function Appbar({}) {
             <div style={{ marginRight: 10 }}>
               <Button
                 onClick={() => {
-                  navigate("/admin/addcourse");
+                  navigate("/user/purchasedcourses");
                 }}
               >
-                Add course
+                Purchased Courses
               </Button>
             </div>
 
             <div style={{ marginRight: 10 }}>
               <Button
                 onClick={() => {
-                  navigate("/admin/courses");
+                  navigate("/user/courses");
                 }}
               >
                 Courses
@@ -100,7 +100,7 @@ function Appbar({}) {
             <Button
               variant={"contained"}
               onClick={() => {
-                navigate("/admin/signup");
+                navigate("/user/signup");
               }}
             >
               Signup
@@ -110,7 +110,7 @@ function Appbar({}) {
             <Button
               variant={"contained"}
               onClick={() => {
-                navigate("/admin/signin");
+                navigate("/user/signin");
               }}
             >
               Signin
@@ -122,4 +122,4 @@ function Appbar({}) {
   }
 }
 
-export default Appbar;
+export default UserAppBar;

@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { userEmailState } from "../store/selectors/userEmail";
 import { isUserLoading } from "../store/selectors/isUserLoading.js";
 
-export const Landing = () => {
+export const UserLanding = () => {
   const navigate = useNavigate();
   const userEmail = useRecoilValue(userEmailState);
   const userLoading = useRecoilValue(isUserLoading);
@@ -14,7 +14,7 @@ export const Landing = () => {
       <Grid container style={{ padding: "5vw" }}>
         <Grid item xs={12} md={6} lg={6}>
           <div style={{ marginTop: 100 }}>
-            <Typography variant={"h2"}>Coursera (Admin)</Typography>
+            <Typography variant={"h2"}>Welcome to Coursera!</Typography>
             <Typography variant={"h5"}>
               A place to learn, earn and grow
             </Typography>
@@ -25,7 +25,7 @@ export const Landing = () => {
                     size={"large"}
                     variant={"contained"}
                     onClick={() => {
-                      navigate("/admin/signup");
+                      navigate("/user/signup");
                     }}
                   >
                     Signup
@@ -36,7 +36,7 @@ export const Landing = () => {
                     size={"large"}
                     variant={"contained"}
                     onClick={() => {
-                      navigate("/admin/signin");
+                      navigate("/user/signin");
                     }}
                   >
                     Signin
