@@ -1,8 +1,9 @@
 const express = require("express");
-const { authenticateJwt, SECRET } = require("../middleware/auth");
+const { authenticateJwt } = require("../middleware/auth");
 const { User, Course, Admin } = require("../db");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const SECRET = process.env.secret;
 
 router.get("/me", authenticateJwt, async (req, res) => {
   const user = await User.findOne({ username: req.user.username });

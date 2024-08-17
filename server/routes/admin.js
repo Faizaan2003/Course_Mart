@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const { User, Course, Admin } = require("../db");
 const jwt = require("jsonwebtoken");
-const { SECRET } = require("../middleware/auth");
 const { authenticateJwt } = require("../middleware/auth");
+const SECRET = process.env.secret;
 
 const router = express.Router();
 
