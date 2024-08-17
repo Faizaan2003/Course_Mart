@@ -14,9 +14,12 @@ app.use(express.json());
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
 
-app.use(express.static("public"));
-app.use("/*", (req, res) => {
+// app.use(express.static("public"));
+app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/index.html"));
 });
 
