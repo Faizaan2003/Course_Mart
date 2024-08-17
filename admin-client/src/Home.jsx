@@ -8,7 +8,7 @@ function Home() {
         <div className={styles.coursera}>
           <img src="/vite.svg" alt="Coursera Logo" />
           <div className={styles.courseraText}>
-            <h2>Coursera</h2>
+            <h2>CourseMart</h2>
             <p>Learn, Earn, and Grow!</p>
           </div>
         </div>

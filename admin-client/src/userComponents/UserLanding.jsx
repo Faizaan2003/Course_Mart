@@ -14,7 +14,7 @@ export const UserLanding = () => {
       <Grid container style={{ padding: "5vw" }}>
         <Grid item xs={12} md={6} lg={6}>
           <div style={{ marginTop: 100 }}>
-            <Typography variant={"h2"}>Welcome to Coursera!</Typography>
+            <Typography variant={"h2"}>Welcome to CourseMart!</Typography>
             <Typography variant={"h5"}>
               A place to learn, earn and grow
             </Typography>
