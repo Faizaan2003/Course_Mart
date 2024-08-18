@@ -10,7 +10,11 @@ const app = express();
 const uri =
   "mongodb+srv://faizaanshaik2002:rehaan558@cluster0.htkhqel.mongodb.net/courses";
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://course-mart-mu.vercel.app"],
+  })
+);
 app.use(express.json());
 
 app.use("/admin", adminRouter);
