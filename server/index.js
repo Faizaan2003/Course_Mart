@@ -7,8 +7,7 @@ const userRouter = require("./routes/user");
 const path = require("path");
 const app = express();
 
-const uri =
-  "mongodb+srv://faizaanshaik2002:rehaan558@cluster0.htkhqel.mongodb.net/courses";
+const uri = process.env.MONGODB_URI;
 
 app.use(
   cors({
