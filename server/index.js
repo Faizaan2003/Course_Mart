@@ -12,7 +12,7 @@ const uri =
 
 app.use(
   cors({
-    origin: ["https://course-mart-mu.vercel.app"],
+    origin: ["https://course-mart-frontend.vercel.app"],
   })
 );
 app.use(express.json());
