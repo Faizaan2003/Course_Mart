@@ -7,7 +7,7 @@ const userRouter = require("./routes/user");
 const path = require("path");
 const app = express();
 
-const uri = process.env.url;
+const uri = process.env.MONGODB_URI;
 
 app.use(cors());
 app.use(express.json());
