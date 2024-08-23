@@ -76,7 +76,7 @@ function InitAdmin() {
         userEmail: null,
       });
       if (localStorage.getItem("alert") == "true") {
-        alert("Your session has expired. Please log in again to continue.");
+        alert("Please log in!");
         navigate("/admin/signin");
       }
       navigate("/admin");
@@ -154,7 +154,7 @@ function InitUser() {
         userEmail: null,
       });
       if (localStorage.getItem("alert") == "true") {
-        alert("Your session has expired. Please log in again to continue.");
+        alert("Please log in!");
         navigate("/user/signin");
       }
       navigate("/user");

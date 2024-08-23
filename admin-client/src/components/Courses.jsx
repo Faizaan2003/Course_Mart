@@ -62,7 +62,7 @@ export function Course({ course, setCourses, courses }) {
           size="large"
           style={{ marginTop: "10px" }}
           onClick={() => {
-            navigate("/admin/course/" + course._id);
+            window.location = "/admin/course/" + course._id;
           }}
         >
           Edit

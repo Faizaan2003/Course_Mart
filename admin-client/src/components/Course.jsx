@@ -101,6 +101,14 @@ function UpdateCard() {
   const [price, setPrice] = useState(courseDetails.course.price);
   const [published, setPublished] = useState(courseDetails.course.published);
 
+  // useEffect(() => {
+  //   setTitle(courseDetails.course.title);
+  //   setDescription(courseDetails.course.description);
+  //   setImage(courseDetails.course.imageLink);
+  //   setPrice(courseDetails.course.price);
+  //   setPublished(courseDetails.course.published);
+  // }, [courseDetails]);
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Card varint={"outlined"} style={{ maxWidth: 600, marginTop: 200 }}>

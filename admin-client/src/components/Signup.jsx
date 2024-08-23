@@ -56,23 +56,25 @@ function Signup() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              const response = await axios.post(`${BASE_URL}/admin/signup`, {
-                username: email,
-                password: password,
-              });
-              let data = response.data;
-
-              if (data.token) {
-                localStorage.setItem("token", data.token);
-                // window.location = "/"
-                setUser({
-                  userEmail: email,
-                  isLoading: false,
+              try {
+                const response = await axios.post(`${BASE_URL}/admin/signup`, {
+                  username: email,
+                  password: password,
                 });
-                navigate("/admin");
-                localStorage.setItem("alert", "true");
-              } else {
-                alert("Admin already exists! Please login!");
+                let data = response.data;
+
+                if (data.token) {
+                  localStorage.setItem("token", data.token);
+                  // window.location = "/"
+                  setUser({
+                    userEmail: email,
+                    isLoading: false,
+                  });
+                  navigate("/admin");
+                  localStorage.setItem("alert", "true");
+                }
+              } catch (err) {
+                alert(err.response.data.message);
                 navigate("/admin/signin");
               }
             }}

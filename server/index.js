@@ -9,11 +9,12 @@ const app = express();
 
 const uri = process.env.MONGODB_URI;
 
-app.use(
-  cors({
-    origin: ["https://course-mart-frontend.vercel.app"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://course-mart-frontend.vercel.app"],
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 
 app.use("/admin", adminRouter);

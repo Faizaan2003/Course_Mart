@@ -1,14 +1,19 @@
 import { Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userEmailState } from "../store/selectors/userEmail";
 import { isUserLoading } from "../store/selectors/isUserLoading.js";
+import { BASE_URL } from "../config.js";
+import axios from "axios";
+import { userState } from "../store/atoms/user.js";
 
 export const UserLanding = () => {
   const navigate = useNavigate();
   const userEmail = useRecoilValue(userEmailState);
   const userLoading = useRecoilValue(isUserLoading);
+  const setUser = useSetRecoilState(userState);
+
   return (
     <div>
       <Grid container style={{ padding: "5vw" }}>
@@ -40,6 +45,42 @@ export const UserLanding = () => {
                     }}
                   >
                     Signin
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    size={"large"}
+                    variant={"contained"}
+                    style={{ marginLeft: "10px" }}
+                    onClick={async () => {
+                      const res = await axios.post(
+                        `${BASE_URL}/user/login`,
+                        {},
+                        {
+                          headers: {
+                            username: "faizaan",
+                            password: "123",
+                            "Content-type": "application/json",
+                          },
+                        }
+                      );
+                      const data = res.data;
+                      if (data.token) {
+                        localStorage.setItem("token", data.token);
+                        // window.location = "/"
+                        setUser({
+                          userEmail: "faizaan",
+                          isLoading: false,
+                        });
+                        localStorage.setItem("alert", "true");
+                        alert(
+                          "Note : You are logged in with default credentials to explore application"
+                        );
+                        navigate("/user");
+                      }
+                    }}
+                  >
+                    Guest
                   </Button>
                 </div>
               </div>

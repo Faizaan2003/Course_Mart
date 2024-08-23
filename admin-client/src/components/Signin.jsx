@@ -57,32 +57,32 @@ function Signin() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              const res = await axios.post(
-                `${BASE_URL}/admin/login`,
-                {},
-                {
-                  headers: {
-                    username: email,
-                    password: password,
-                    "Content-type": "application/json",
-                  },
-                }
-              );
-              const data = res.data;
-
-              if (data.token) {
-                localStorage.setItem("token", data.token);
-                // window.location = "/"
-                setUser({
-                  userEmail: email,
-                  isLoading: false,
-                });
-                navigate("/admin");
-                localStorage.setItem("alert", "true");
-              } else {
-                alert(
-                  "Error occured! please login again with valid credentials!"
+              try {
+                const res = await axios.post(
+                  `${BASE_URL}/admin/login`,
+                  {},
+                  {
+                    headers: {
+                      username: email,
+                      password: password,
+                      "Content-type": "application/json",
+                    },
+                  }
                 );
+                const data = res.data;
+
+                if (data.token) {
+                  localStorage.setItem("token", data.token);
+                  // window.location = "/"
+                  setUser({
+                    userEmail: email,
+                    isLoading: false,
+                  });
+                  navigate("/admin");
+                  localStorage.setItem("alert", "true");
+                }
+              } catch (err) {
+                alert(error.response.data.message);
                 navigate("/admin/signin");
               }
             }}
