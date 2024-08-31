@@ -35,7 +35,7 @@ function Signup() {
               setEmail(event.target.value);
             }}
             fullWidth={true}
-            label="Email"
+            label="Username"
             variant="outlined"
           />
           <br />
@@ -75,7 +75,7 @@ function Signup() {
                 }
               } catch (err) {
                 alert(err.response.data.message);
-                navigate("/admin/signin");
+                navigate("/admin/signup");
               }
             }}
           >

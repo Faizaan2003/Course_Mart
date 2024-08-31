@@ -2,6 +2,9 @@ import { Button, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../config.js";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userEmailState } from "../store/selectors/userEmail.js";
+import { Loading } from "../components/Loading.jsx";
 
 function PublishedCourses() {
   const [courses, setCourses] = useState([]);
@@ -18,7 +21,13 @@ function PublishedCourses() {
   useEffect(() => {
     init();
   }, []);
-
+  if (courses.length == 0) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
@@ -31,6 +40,7 @@ function PublishedCourses() {
 }
 
 export function Course({ course }) {
+  const userEmail = useRecoilValue(userEmailState);
   return (
     <Card
       style={{
@@ -54,19 +64,23 @@ export function Course({ course }) {
         size="large"
         style={{ marginTop: "10px" }}
         onClick={async () => {
-          try {
-            const response = await axios.post(
-              `${BASE_URL}/user/courses/${course._id}`,
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              }
-            );
-            alert(response.data.message);
-          } catch (err) {
-            alert(err.response.data.message);
+          if (userEmail == "faizaan")
+            alert("you can't purchase with default credentials!");
+          else {
+            try {
+              const response = await axios.post(
+                `${BASE_URL}/user/courses/${course._id}`,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              );
+              alert(response.data.message);
+            } catch (err) {
+              alert(err.response.data.message);
+            }
           }
         }}
       >

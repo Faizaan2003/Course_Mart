@@ -2,6 +2,7 @@ import { Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../config.js";
 import axios from "axios";
+import { Loading } from "../components/Loading.jsx";
 
 function PurchasedCourses() {
   const [courses, setCourses] = useState([]);
@@ -18,6 +19,14 @@ function PurchasedCourses() {
   useEffect(() => {
     init();
   }, []);
+
+  if (courses.length == 0) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div

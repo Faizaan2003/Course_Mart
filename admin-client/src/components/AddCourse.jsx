@@ -4,12 +4,15 @@ import { Card, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../config.js";
+import { useRecoilValue } from "recoil";
+import { userEmailState } from "../store/selectors/userEmail.js";
 function AddCourse() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState();
   const [published, setPublished] = useState();
+  const userEmail = useRecoilValue(userEmailState);
 
   return (
     <div
@@ -119,28 +122,32 @@ function AddCourse() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              await axios.post(
-                `${BASE_URL}/admin/courses`,
-                {
-                  title: title,
-                  description: description,
-                  imageLink: image,
-                  published,
-                  price,
-                },
-                {
-                  headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
+              if (userEmail == "faizaan")
+                alert("you can't add course with default credentials!");
+              else {
+                await axios.post(
+                  `${BASE_URL}/admin/courses`,
+                  {
+                    title: title,
+                    description: description,
+                    imageLink: image,
+                    published,
+                    price,
                   },
-                }
-              );
-              alert("Added course!");
+                  {
+                    headers: {
+                      Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                  }
+                );
+                alert("Added course!");
 
-              setTitle("");
-              setDescription("");
-              setImage("");
-              setPrice(0);
-              setPublished(false);
+                setTitle("");
+                setDescription("");
+                setImage("");
+                setPrice(0);
+                setPublished(false);
+              }
             }}
           >
             Add course

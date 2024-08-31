@@ -36,7 +36,7 @@ function UserSignin() {
               setEmail(elemt.value);
             }}
             fullWidth={true}
-            label="Email"
+            label="Username"
             variant="outlined"
           />
           <br />

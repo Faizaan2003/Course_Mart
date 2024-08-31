@@ -14,6 +14,7 @@ import {
   courseImage,
   coursePublished,
 } from "../store/selectors/course";
+import { userEmailState } from "../store/selectors/userEmail.js";
 
 function Course() {
   let { courseId } = useParams();
@@ -91,6 +92,7 @@ function GrayTopper() {
 }
 
 function UpdateCard() {
+  const userEmail = useRecoilValue(userEmailState);
   const [courseDetails, setCourse] = useRecoilState(courseState);
 
   const [title, setTitle] = useState(courseDetails.course.title);
@@ -205,32 +207,36 @@ function UpdateCard() {
           <Button
             variant="contained"
             onClick={async () => {
-              axios.put(
-                `${BASE_URL}/admin/courses/` + courseDetails.course._id,
-                {
+              if (userEmail == "faizaan")
+                alert("you can't update with default credentials!");
+              else {
+                axios.put(
+                  `${BASE_URL}/admin/courses/` + courseDetails.course._id,
+                  {
+                    title: title,
+                    description: description,
+                    imageLink: image,
+                    published,
+                    price,
+                  },
+                  {
+                    headers: {
+                      "Content-type": "application/json",
+                      Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                  }
+                );
+                let updatedCourse = {
+                  _id: courseDetails.course._id,
                   title: title,
                   description: description,
                   imageLink: image,
                   published,
                   price,
-                },
-                {
-                  headers: {
-                    "Content-type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                  },
-                }
-              );
-              let updatedCourse = {
-                _id: courseDetails.course._id,
-                title: title,
-                description: description,
-                imageLink: image,
-                published,
-                price,
-              };
-              setCourse({ course: updatedCourse, isLoading: false });
-              alert("course updated successfully");
+                };
+                setCourse({ course: updatedCourse, isLoading: false });
+                alert("course updated successfully");
+              }
             }}
           >
             Update course
