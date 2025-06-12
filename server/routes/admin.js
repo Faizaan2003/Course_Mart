@@ -103,6 +103,11 @@ router.get("/course/:courseId", authenticateJwt, async (req, res) => {
 router.delete("/delete/:courseId", authenticateJwt, async (req, res) => {
   const courseId = req.params.courseId;
   const temp = await Course.deleteOne({ _id: courseId });
+  await Admin.updateOne(
+    { _id: req.user.id },
+    { $pull: { createdCourses: courseId } }
+  );
+
   if (temp.deletedCount > 0) {
     res.json({ message: "Course deleted successfully!" });
   } else {
